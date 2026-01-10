@@ -1,0 +1,173 @@
+/**
+ * 主题 CSS 变量
+ * 这些变量会被 ThemeContext 动态更新
+ */
+
+:root {
+  /* 主色调 */
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-light: #eff6ff;
+  
+  /* 语义色彩 */
+  --color-secondary: #10b981;
+  --color-accent: #f59e0b;
+  --color-danger: #ef4444;
+  --color-danger-light: #fef2f2;
+  --color-warning: #d97706;
+  --color-warning-light: #fffbeb;
+  --color-success: #10b981;
+  --color-success-light: #ecfdf5;
+  --color-info: #3b82f6;
+  --color-info-light: #eff6ff;
+  
+  /* 背景色 */
+  --color-background: #f9fafb;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f3f4f6;
+  
+  /* 文字色 */
+  --color-text: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-text-inverse: #ffffff;
+  
+  /* 边框色 */
+  --color-border: #e5e7eb;
+  --color-border-light: #f3f4f6;
+  --color-border-dark: #d1d5db;
+  
+  /* 阴影 */
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-light: rgba(0, 0, 0, 0.05);
+}
+
+/* 深色主题变量 (可选的静态备份) */
+[data-theme="dark"] {
+  /* 主色调 */
+  --color-primary: #60a5fa;
+  --color-primary-hover: #3b82f6;
+  --color-primary-light: #1e3a5f;
+  
+  /* 语义色彩 */
+  --color-secondary: #34d399;
+  --color-accent: #fbbf24;
+  --color-danger: #f87171;
+  --color-danger-light: #450a0a;
+  --color-warning: #fbbf24;
+  --color-warning-light: #451a03;
+  --color-success: #34d399;
+  --color-success-light: #022c22;
+  --color-info: #60a5fa;
+  --color-info-light: #1e3a5f;
+  
+  /* 背景色 */
+  --color-background: #111827;
+  --color-surface: #1f2937;
+  --color-surface-hover: #374151;
+  
+  /* 文字色 */
+  --color-text: #f9fafb;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #6b7280;
+  --color-text-inverse: #111827;
+  
+  /* 边框色 */
+  --color-border: #374151;
+  --color-border-light: #4b5563;
+  --color-border-dark: #1f2937;
+  
+  /* 阴影 */
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-shadow-light: rgba(0, 0, 0, 0.2);
+}
+
+/* ========== 主题工具类 ========== */
+
+/* 背景色 */
+.bg-theme-background {
+  background-color: var(--color-background);
+}
+
+.bg-theme-surface {
+  background-color: var(--color-surface);
+}
+
+.bg-theme-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-theme-primary-light {
+  background-color: var(--color-primary-light);
+}
+
+/* 文字色 */
+.text-theme {
+  color: var(--color-text);
+}
+
+.text-theme-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-theme-muted {
+  color: var(--color-text-muted);
+}
+
+.text-theme-primary {
+  color: var(--color-primary);
+}
+
+.text-theme-inverse {
+  color: var(--color-text-inverse);
+}
+
+/* 边框色 */
+.border-theme {
+  border-color: var(--color-border);
+}
+
+.border-theme-light {
+  border-color: var(--color-border-light);
+}
+
+/* 悬停效果 */
+.hover\:bg-theme-surface-hover:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.hover\:bg-theme-primary-hover:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* 按钮样式 */
+.btn-theme-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.btn-theme-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* 卡片样式 */
+.card-theme {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+/* 输入框样式 */
+.input-theme {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.input-theme:focus {
+  border-color: var(--color-primary);
+}
+
+.input-theme::placeholder {
+  color: var(--color-text-muted);
+}
+
