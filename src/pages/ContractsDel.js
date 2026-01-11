@@ -12,7 +12,9 @@ import {
   ArrowRight,
   Clock,
   User,
-  X
+  X,
+  Maximize2,
+  Minimize2
 } from 'lucide-react';
 import { usePageHeader } from '../contexts/PageHeaderContext';
 
@@ -124,6 +126,9 @@ const ContractsDel = () => {
     riskFindings: true,
     recommendations: true,
   });
+  
+  // 注释区域显示/隐藏状态
+  const [showAnnotations, setShowAnnotations] = useState(true);
 
   // 渲染风险标签
   const renderRiskBadge = (type) => {
@@ -233,6 +238,21 @@ const ContractsDel = () => {
             <span className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
               3 / 15
             </span>
+
+            {/* 展开注释区域按钮 */}
+            {!showAnnotations && (
+              <button
+                onClick={() => setShowAnnotations(true)}
+                className="flex items-center gap-1.5 px-3 py-1 rounded-lg transition-colors hover:bg-gray-100"
+                style={{ 
+                  backgroundColor: 'var(--color-background)',
+                  border: '1px solid var(--color-border)'
+                }}
+                title="Show Annotations"
+              >
+                <Maximize2 className="w-4 h-4" style={{ color: 'var(--color-text-muted)' }} />
+              </button>
+            )}
           </div>
         </div>
 
@@ -394,98 +414,110 @@ const ContractsDel = () => {
       </div>
 
       {/* 中间 - 注释区域 */}
-      <div 
-        className="w-80 flex flex-col rounded-xl overflow-hidden flex-shrink-0 h-full"
-        style={{ 
-          backgroundColor: 'var(--color-surface)',
-          border: '1px solid var(--color-border)'
-        }}
-      >
-        <div className="p-4" style={{ borderBottom: '1px solid var(--color-border)' }}>
-          <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>Annotations</h3>
-          <div className="flex gap-3">
-            <button 
-              className={`px-6 py-2 text-sm font-medium rounded-full transition-colors`}
-              style={{ 
-                backgroundColor: annotationTab === 'all' ? 'var(--color-accent-light)' : 'transparent',
-                color: annotationTab === 'all' ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-                border: `1px solid ${annotationTab === 'all' ? 'var(--color-accent)' : 'var(--color-border)'}`
-              }}
-              onClick={() => setAnnotationTab('all')}
-            >
-              All (12)
-            </button>
-            <button 
-              className={`px-6 py-2 text-sm font-medium rounded-full transition-colors`}
-              style={{ 
-                backgroundColor: annotationTab === 'mine' ? 'var(--color-accent-light)' : 'transparent',
-                color: annotationTab === 'mine' ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-                border: `1px solid ${annotationTab === 'mine' ? 'var(--color-accent)' : 'var(--color-border)'}`
-              }}
-              onClick={() => setAnnotationTab('mine')}
-            >
-              Mine (5)
-            </button>
-          </div>
-        </div>
-
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {MOCK_ANNOTATIONS.map((annotation) => (
-            <div 
-              key={annotation.id} 
-              className="p-4 rounded-xl space-y-3"
-              style={{ 
-                backgroundColor: 'var(--color-accent-light)',
-                border: '1px solid var(--color-accent)'
-              }}
-            >
-              {/* 用户信息 */}
-              <div className="flex items-center gap-3">
-                <div 
-                  className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: 'var(--color-info)' }}
-                >
-                  <span className="text-white text-lg font-medium">
-                    {annotation.user.name.charAt(0)}
-                  </span>
-                </div>
-                <div>
-                  <p className="text-lg font-semibold" style={{ color: 'var(--color-text)' }}>
-                    {annotation.user.name}
-                  </p>
-                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-                    {annotation.time}
-                  </p>
-                </div>
-              </div>
-              
-              {/* 高亮标签 */}
-              <span 
-                className="inline-block px-3 py-1 text-sm font-medium rounded-md"
-                style={{ 
-                  backgroundColor: 'var(--color-warning-light)', 
-                  color: 'var(--color-accent)' 
-                }}
+      {showAnnotations && (
+        <div 
+          className="w-80 flex flex-col rounded-xl overflow-hidden flex-shrink-0 h-full"
+          style={{ 
+            backgroundColor: 'var(--color-surface)',
+            border: '1px solid var(--color-border)'
+          }}
+        >
+          <div className="p-4" style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold" style={{ color: 'var(--color-text)' }}>Annotations</h3>
+              <button
+                onClick={() => setShowAnnotations(false)}
+                className="p-1.5 rounded-lg transition-colors hover:bg-gray-100"
+                style={{ color: 'var(--color-text-muted)' }}
+                title="Minimize"
               >
-                {annotation.type}
-              </span>
-              
-              {/* 内容 */}
-              <p className="text-base leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-                {annotation.content}
-              </p>
-              
-              {/* 页码链接 */}
-              <button 
-                className="text-base font-medium flex items-center gap-1"
-                style={{ color: 'var(--color-accent)' }}
-              >
-                → Page {annotation.page}
+                <Minimize2 className="w-5 h-5" />
               </button>
             </div>
-          ))}
+            <div className="flex gap-3">
+              <button 
+                className={`px-6 py-2 text-sm font-medium rounded-full transition-colors`}
+                style={{ 
+                  backgroundColor: annotationTab === 'all' ? 'var(--color-accent-light)' : 'transparent',
+                  color: annotationTab === 'all' ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+                  border: `1px solid ${annotationTab === 'all' ? 'var(--color-accent)' : 'var(--color-border)'}`
+                }}
+                onClick={() => setAnnotationTab('all')}
+              >
+                All (12)
+              </button>
+              <button 
+                className={`px-6 py-2 text-sm font-medium rounded-full transition-colors`}
+                style={{ 
+                  backgroundColor: annotationTab === 'mine' ? 'var(--color-accent-light)' : 'transparent',
+                  color: annotationTab === 'mine' ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+                  border: `1px solid ${annotationTab === 'mine' ? 'var(--color-accent)' : 'var(--color-border)'}`
+                }}
+                onClick={() => setAnnotationTab('mine')}
+              >
+                Mine (5)
+              </button>
+            </div>
+          </div>
+
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {MOCK_ANNOTATIONS.map((annotation) => (
+              <div 
+                key={annotation.id} 
+                className="p-4 rounded-xl space-y-3"
+                style={{ 
+                  backgroundColor: 'var(--color-accent-light)',
+                  border: '1px solid var(--color-accent)'
+                }}
+              >
+                {/* 用户信息 */}
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: 'var(--color-info)' }}
+                  >
+                    <span className="text-white text-lg font-medium">
+                      {annotation.user.name.charAt(0)}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-lg font-semibold" style={{ color: 'var(--color-text)' }}>
+                      {annotation.user.name}
+                    </p>
+                    <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                      {annotation.time}
+                    </p>
+                  </div>
+                </div>
+                
+                {/* 高亮标签 */}
+                <span 
+                  className="inline-block px-3 py-1 text-sm font-medium rounded-md"
+                  style={{ 
+                    backgroundColor: 'var(--color-warning-light)', 
+                    color: 'var(--color-accent)' 
+                  }}
+                >
+                  {annotation.type}
+                </span>
+                
+                {/* 内容 */}
+                <p className="text-base leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                  {annotation.content}
+                </p>
+                
+                {/* 页码链接 */}
+                <button 
+                  className="text-base font-medium flex items-center gap-1"
+                  style={{ color: 'var(--color-accent)' }}
+                >
+                  → Page {annotation.page}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 右侧 - AI 分析 */}
       <div 

@@ -122,14 +122,14 @@ export const themes = {
     name: 'orange',
     label: '品牌橙色',
     colors: {
-      // 主色调（使用中性色作为主要 UI 元素）
+      // 主色调（使用中性色作为主要 UI 元素） Black and gray scale for buttons, text, backgrounds, and borders. Use these as primary colors for UI elements.
       primary: '#0D0D12',
       primaryHover: '#1C1C21',
       primaryLight: '#F5F5F7',
       
-      // 语义色彩
+      // 语义色彩  
       secondary: '#3F3F45',
-      accent: '#FD4A1A',           // 品牌橙色 - 谨慎使用
+      accent: '#FD4A1A',           // 品牌橙色 - 谨慎使用 Orange brand color for accents, highlights, and key interactive elements. Use with restraint.
       accentHover: '#ED3D14',      // Primary 600
       accentLight: '#FFF2ED',      // Primary 50
       danger: '#EF4444',
@@ -153,7 +153,7 @@ export const themes = {
       textInverse: '#FFFFFF',
       
       // 按钮文字色
-      buttonPrimaryText: '#FFFFFF',
+      buttonPrimaryText: '#FFFFFF',  
       buttonSecondaryText: '#0D0D12',
       buttonAccentText: '#FFFFFF',
       
