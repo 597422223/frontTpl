@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { 
   ChevronDown, 
   ChevronRight,
@@ -9,7 +9,11 @@ import {
   Bot,
   BarChart3,
   LogOut,
-  Upload
+  Upload,
+  Settings,
+  Palette,
+  FileSearch,
+  FileText
 } from 'lucide-react';
 
 import logo from '../assets/images/logo.png';
@@ -39,6 +43,13 @@ const menuItems = [
     badge: { text: 'NEW', type: 'warning', icon: '⚡' }
   },
   { 
+    id: 'contract-review',
+    path: '/contract-review', 
+    icon: FileSearch, 
+    label: 'Contract Review',
+    matchPaths: ['/contract-review', '/contract-detail', '/multiple-contracts']
+  },
+  { 
     id: 'ai-answer',
     path: '/ai-answer', 
     icon: Bot, 
@@ -47,12 +58,36 @@ const menuItems = [
       { id: 'vista', path: '/ai-answer/vista', icon: BarChart3, label: 'Vista Analyst' },
     ]
   },
+  { 
+    id: 'settings',
+    path: '/settings', 
+    icon: Settings, 
+    label: 'Settings',
+    children: [
+      { id: 'theme', path: '/settings/theme', icon: Palette, label: 'Theme' },
+    ]
+  },
+  { 
+    id: 'contract-history',
+    path: '/contract-history', 
+    icon: FileText, 
+    label: 'Contract History'
+  },
 ];
 
 const Sidebar = ({ collapsed, onToggle }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [expandedMenus, setExpandedMenus] = useState([]); // 默认收起所有子菜单
   const { isDark } = useTheme();
+  
+  // 检查菜单项是否激活（支持 matchPaths）
+  const isMenuActive = (item) => {
+    if (item.matchPaths) {
+      return item.matchPaths.some(path => location.pathname === path || location.pathname.startsWith(path + '/'));
+    }
+    return location.pathname === item.path;
+  };
   
   // 获取用户信息
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -162,6 +197,8 @@ const Sidebar = ({ collapsed, onToggle }) => {
       );
     }
 
+    const isActive = isMenuActive(item);
+    
     return (
       <li key={item.id}>
         {item.divider && (
@@ -172,10 +209,8 @@ const Sidebar = ({ collapsed, onToggle }) => {
         )}
         <NavLink
           to={item.path}
-          className={({ isActive }) =>
-            `flex items-center px-4 py-3 rounded-xl transition-colors ${collapsed ? 'justify-center' : ''}`
-          }
-          style={({ isActive }) => 
+          className={`flex items-center px-4 py-3 rounded-xl transition-colors ${collapsed ? 'justify-center' : ''}`}
+          style={
             isActive 
               ? { 
                   backgroundColor: 'var(--color-primary-light)', 

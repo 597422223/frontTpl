@@ -19,6 +19,11 @@ import About from './pages/About';
 import Vista from './pages/Vista';
 import FormPage from './pages/FormPage';
 import UploadPage from './pages/UploadPage';
+import ContractReview from './pages/ContractReview';
+import ContractsDel from './pages/ContractsDel';
+import MultipleContracts from './pages/MultipleContracts';
+import ContractHistory from './pages/ContractHistory';
+import ThemeSettings from './pages/ThemeSettings';
 import NotFound from './pages/NotFound';
 
 // 带 PageHeader 的布局组件
@@ -84,6 +89,11 @@ function App() {
                     <Route path="/ai-answer/vista" element={<Vista />} />
                     <Route path="/form" element={<FormPage />} />
                     <Route path="/upload" element={<UploadPage />} />
+                    <Route path="/contract-review" element={<ContractReview />} />
+                    <Route path="/contract-detail" element={<ContractsDel />} />
+                    <Route path="/multiple-contracts" element={<MultipleContracts />} />
+                    <Route path="/contract-history" element={<ContractHistory />} />
+                    <Route path="/settings/theme" element={<ThemeSettings />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </LayoutWithHeader>

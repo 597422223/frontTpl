@@ -6,6 +6,7 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import About from '../pages/About';
 import NotFound from '../pages/NotFound';
+import ThemeSettings from '../pages/ThemeSettings';
 
 // Components
 import AuthGuard from '../components/AuthGuard';
@@ -34,6 +35,14 @@ const AppRoutes = () => {
         element={
           <AuthGuard>
             <About />
+          </AuthGuard>
+        }
+      />
+      <Route
+        path="/settings/theme"
+        element={
+          <AuthGuard>
+            <ThemeSettings />
           </AuthGuard>
         }
       />
